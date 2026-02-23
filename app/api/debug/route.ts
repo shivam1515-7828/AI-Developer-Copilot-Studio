@@ -1,7 +1,9 @@
+
 import { streamText } from "ai";
 import { aiService } from "@/services/ai";
 
 export const maxDuration = 30;
+export const runtime = "edge";
 
 export async function POST(req: Request) {
   try {

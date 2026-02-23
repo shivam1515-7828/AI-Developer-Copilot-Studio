@@ -55,7 +55,16 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+      keyframes: {
+        progress: {
+          "0%": { transform: "translateX(-150%)" },
+          "100%": { transform: "translateX(300%)" },
+        }
+      },
+      animation: {
+        progress: "progress 2s ease-in-out infinite",
+      }
   	}
   },
   plugins: [

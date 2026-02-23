@@ -8,6 +8,7 @@ import { Bug, Loader2, Copy, Sparkles } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useToast } from "@/hooks/use-toast";
+import { LoadingMessage } from "@/components/loading-message";
 
 export default function DebuggerPage() {
   const { toast } = useToast();
@@ -102,7 +103,9 @@ Paste your logs here."
             </div>
           </div>
           <CardContent className="flex-1 overflow-auto custom-scrollbar p-8">
-            {completion ? (
+            {isLoading && !completion ? (
+              <LoadingMessage />
+            ) : completion ? (
               <div className="prose prose-sm md:prose-base dark:prose-invert max-w-none prose-headings:text-rose-600 dark:prose-headings:text-rose-400">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{completion}</ReactMarkdown>
               </div>

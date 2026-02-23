@@ -2,18 +2,16 @@ import { streamText } from "ai";
 import { aiService } from "@/services/ai";
 
 export const maxDuration = 30;
+export const runtime = "edge";
 
 export async function POST(req: Request) {
   try {
     const { prompt, language } = await req.json();
-    console.log("AI Translate Request received for prompt length:", prompt?.length, "to:", language);
-
     const result = await streamText({
       model: aiService.getModel(),
       prompt: aiService.getTranslatorPrompt(prompt, language || "another language"),
     });
 
-    console.log("AI Translate stream started successfully");
     return result.toTextStreamResponse();
   } catch (error) {
     console.error("AI Translate Route Error:", error);

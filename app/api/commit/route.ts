@@ -2,18 +2,16 @@ import { streamText } from "ai";
 import { aiService } from "@/services/ai";
 
 export const maxDuration = 30;
+export const runtime = "edge";
 
 export async function POST(req: Request) {
   try {
     const { prompt }: { prompt: string } = await req.json();
-    console.log("AI Commit Request received for prompt length:", prompt?.length);
-
     const result = await streamText({
       model: aiService.getModel(),
       prompt: aiService.getCommitPrompt(prompt),
     });
 
-    console.log("AI Commit stream started successfully");
     return result.toTextStreamResponse();
   } catch (error) {
     console.error("AI Commit Route Error:", error);
