@@ -1,8 +1,17 @@
 import { google } from "@ai-sdk/google";
-
+import { groq } from "@ai-sdk/groq";
+import { xai } from "@ai-sdk/xai";
 
 export const aiService = {
-  getModel: () => google("gemini-flash-latest"),
+  getModel: () => {
+    if (process.env.GROQ_API_KEY) {
+      return groq("llama-3.3-70b-versatile");
+    }
+    if (process.env.XAI_API_KEY) {
+      return xai("grok-beta");
+    }
+    return google("gemini-1.5-flash-latest");
+  },
 
   getExplainerPrompt: (code: string) => `
 Analyze this code. Explain the structure, file purposes, and component interactions in clear markdown.
@@ -63,35 +72,5 @@ ${code}
     DIFF:
     ${diff}`;
   },
-
-  getMockStreamResponse() {
-    const encoder = new TextEncoder();
-    const stream = new ReadableStream({
-      async start(controller) {
-        // Wait 2.5 seconds to start the output early ("give output in a less time")
-        // but still give users enough time to see the first animation phase.
-        await new Promise((resolve) => setTimeout(resolve, 2500));
-        
-        const message = `**Output Generated Successfully!**\n\nThe AI logic was processed efficiently. Here is your mocked placeholder response while the system connects to the main neural framework.\n\nEnjoy the rest of the animations!`;
-        
-        const chunks = message.split("");
-        // Stream the characters over the next 8 seconds (8000ms / length)
-        // Total time = 2.5s (wait) + 8s (stream) = 10.5 seconds total exactly as requested!
-        const delayPerChar = 8000 / chunks.length;
-        
-        for (let i = 0; i < chunks.length; i++) {
-          controller.enqueue(encoder.encode(chunks[i]));
-          await new Promise((resolve) => setTimeout(resolve, delayPerChar));
-        }
-        controller.close();
-      },
-    });
-
-    return new Response(stream, {
-      status: 200,
-      headers: {
-        "Content-Type": "text/plain; charset=utf-8",
-      },
-    });
-  }
 };
+

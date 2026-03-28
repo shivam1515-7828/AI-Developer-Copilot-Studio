@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.30",
+    "@ai-sdk/groq": "^3.0.31",
     "@ai-sdk/react": "^3.0.99",
+    "@ai-sdk/xai": "^3.0.74",
     "@google/generative-ai": "^0.24.1",
     "@prisma/client": "^5.22.0",
     "@radix-ui/react-dialog": "^1.1.15",

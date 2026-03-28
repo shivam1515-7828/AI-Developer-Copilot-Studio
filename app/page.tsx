@@ -117,7 +117,7 @@ export default function Home() {
         <div className="flex items-end justify-between px-2">
           <div className="space-y-1">
             <h2 className="text-3xl font-bold tracking-tight">Core Suite</h2>
-            <p className="text-muted-foreground font-medium">Enterprise-grade utilities powered by Gemini 2.5</p>
+            <p className="text-muted-foreground font-medium">Enterprise-grade utilities powered by Grok & Groq</p>
           </div>
           <div className="h-[1px] flex-1 bg-gradient-to-r from-border/0 via-border to-border/0 mx-10 hidden md:block" />
         </div>
